@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="description" content="Notes page">
+  <meta name="author" content="Ali Al-Masry">
+  <title>FWD Web - Image processing</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap&effect=3d-float">
+  <style>
+    body{
+    font-family:'Titillium Web', sans-serif;
+    background-color: rgb(33.333%, 33.333%, 33.333%);
+    text-shadow: 4px 4px 4px #aaa;
+    padding: 0%;
+    margin: 0%;
+}
+.webpage-container{
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: 100px 3000px 60px;
+    grid-template-areas: 
+    "header header"
+    "sidebar content"
+    "footer footer";
+    column-gap: 15px;
+    overflow-y: hidden;
+}
+.webpage-header{
+    grid-area: header;
+}
+.webpage-sidebar{
+    grid-area: sidebar;
+}
+.webpage-content{
+    grid-area: content;
+    overflow-y: auto;
+    height: 100vh;
+}
+.webpage-footer{
+    grid-area: footer;
+}
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    padding-bottom: 100px;
+}
+.column{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 50%;
+}
+.title{
+    font-size: 30px;
+    text-align: center;
+}
+.footer{
+    font-size: 20px;
+    text-align: center;
+}
+.menu{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+  ol,ul { display: block; list-style-type:square;}
+      li { margin: 10px; }
+      ul li{font-size: 1.5em;}
+      li {
+        font-size: 1.5em;
+      }
+      ul li.done{text-decoration: line-through;}
+      ul li.on{background-color: yellow;
+      font-weight: bold;
+      color: red;}
+      /*.box{border: 8px solid blue;height:100px;width:150px;padding:.5em;}*/
+      .bluebox{border: 10px solid blue;float:right;height:100px;width:150px;padding:.5em;}
+.redbox{border: 10px solid red;float:right;height:30px;width:30px;padding:.5em;}
+.container{width:100%;display: flex;flex-wrap: wrap;flex-direction: row;border: 2px solid black;}
+.container-200{width: 200px;display: flex;flex-wrap: wrap;flex-direction: row;border: 5px solid black;}
+.box{
+    width: 25%;
+    min-height: 10px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: sans-serif;
+    /* float:right; */
+  }
+  .box-100{
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: sans-serif;
+    /* float:right; */
+  }
+  /*background-colors*/
+  .gray{
+    background-color: gray;
+  }
+  .orange{
+    background-color: orange;
+  }
+  .yellow{
+    background-color: yellow;
+  }
+  .blue{
+    background-color: blue;
+  }
+  .green{
+    background-color: green;
+  }
+  .red{
+    background-color: red;
+  }
+  .white{
+    background-color: white;
+  }
+  .black{
+    background-color: black;
+  }
+  /*text-colors*/
+  .text-gray{
+    color: gray;
+  }
+  .text-orange{
+    color: orange;
+  }
+  .text-yellow{
+    color: yellow;
+  }
+  .text-blue{
+    color: blue;
+  }
+  .text-green{
+    color: green;
+  }
+  .text-red{
+    color: red;
+  }
+  .text-white{
+    color: white;
+  }
+  .text-black{
+    color: black;
+  }
+.gallery-container{display:flex;flex-wrap:wrap;list-style-type: none;align-items: center;place-content: center;}
+.gallery-box{font-family:sans-serif;text-align:center;font-weight:bold;}
+  </style>
+</head>
+<body>
+  <div class="webpage-container">
+    <div class="webpage-header white" id="header">
+      <h1 class="title">Egy FWD - Image Processing Api</h1>
+    </div>
+    <div class="webpage-sidebar white">
+      <ul class="menu">
+        <li><a href="#header">About</a></li>
+        <li><a href="#resize-div">Resize Operation</a></li>
+        <li><a href="#flip-div">Flip Operation</a></li>
+        <li><a href="#flop-div">Flop Operation</a></li>
+        <li><a href="#blur-div">Blur Operation</a></li>
+        <li><a href="#rotate-div">Rotate Operation</a></li>
+        <li><a href="http://localhost:5050/api/images/thumbs">Thumbnail Directory</a></li>
+      </ul>
+    </div>
+    <div class="webpage-content">
+      <div class="row">
+        <div id="about-div">
+          <h1 class="font-effect-3d text-white">About</h1>
+          <span class="text-yellow">This is an API that can be used in two different ways. As a simple placeholder API, the first allows you to place images into your frontend with the size set via URL parameters (and additional stylization if you choose) for rapid prototyping. The second use case is as a library to serve properly scaled versions of your images to the front end to reduce page load size. Rather than needing to resize and upload multiple copies of the same image to be used throughout your site, the API you create will handle resizing and serving stored images for you.</span>
+        </div>
+      </div>
+      <div class="row">
+        <div id="resize-div">
+          <h1 class="font-effect-3d text-white">Resize Operation</h1>
+          <span class="text-yellow">Resize image to width, height or width x height.</span>
+        </div>
+        <ul class="gallery-container">
+          <li class="gallery-box"><a href='./api/images/resize?filename=photo1.jpg&height=200&width=200'><img style='height:200px;width:200px;' src='./assets/images/html/photo1.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/resize?filename=photo2.jpg&height=200&width=200'><img style='height:200px;width:200px;' src='./assets/images/html/photo2.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/resize?filename=photo3.jpg&height=200&width=200'><img style='height:200px;width:200px;' src='./assets/images/html/photo3.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/resize?filename=photo4.jpg&height=200&width=200'><img style='height:200px;width:200px;' src='./assets/images/html/photo4.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/resize?filename=photo5.jpg&height=200&width=200'><img style='height:200px;width:200px;' src='./assets/images/html/photo5.jpg' alt='image 01'></a></li>
+        </ul>
+      </div>
+      <div class="row">
+        <div id="flip-div">
+          <h1 class="font-effect-3d text-white">Flip Operation</h1>
+          <span class="text-yellow">Flip the image about the vertical Y axis.</span>
+        </div>
+        <ul class="gallery-container">
+          <li class="gallery-box"><a href='./api/images/flip?filename=photo6.jpg'><img style='height:200px;width:200px;' src='./assets/images/html/photo6.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/flip?filename=photo7.jpg'><img style='height:200px;width:200px;' src='./assets/images/html/photo7.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/flip?filename=photo8.jpg'><img style='height:200px;width:200px;' src='./assets/images/html/photo8.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/flip?filename=photo9.jpg'><img style='height:200px;width:200px;' src='./assets/images/html/photo9.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/flip?filename=photo10.jpg'><img style='height:200px;width:200px;' src='./assets/images/html/photo10.jpg' alt='image 01'></a></li>
+        </ul>
+      </div>
+      <div class="row">
+        <div id="flop-div">
+          <h1 class="font-effect-3d text-white">Flop Operation</h1>
+          <span class="text-yellow">Flop the image about the horizontal X axis.</span>
+        </div>
+        <ul class="gallery-container">
+          <li class="gallery-box"><a href='./api/images/flop?filename=photo16.jpg'><img style='height:200px;width:200px;' src='./assets/images/html/photo16.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/flop?filename=photo17.jpg'><img style='height:200px;width:200px;' src='./assets/images/html/photo17.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/flop?filename=photo18.jpg'><img style='height:200px;width:200px;' src='./assets/images/html/photo18.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/flop?filename=photo19.jpg'><img style='height:200px;width:200px;' src='./assets/images/html/photo19.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/flop?filename=photo20.jpg'><img style='height:200px;width:200px;' src='./assets/images/html/photo20.jpg' alt='image 01'></a></li>
+        </ul>
+      </div>
+      <div class="row">
+        <div id="blur-div">
+          <h1 class="font-effect-3d text-white">Blur Operation</h1>
+          <span class="text-yellow">Blur the image.</span>
+        </div>
+        <ul class="gallery-container">
+          <li class="gallery-box"><a href='./api/images/blur?filename=photo11.jpg&sigma=5'><img style='height:200px;width:200px;' src='./assets/images/html/photo11.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/blur?filename=photo12.jpg&sigma=10'><img style='height:200px;width:200px;' src='./assets/images/html/photo12.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/blur?filename=photo13.jpg&sigma=15'><img style='height:200px;width:200px;' src='./assets/images/html/photo13.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/blur?filename=photo14.jpg&sigma=20'><img style='height:200px;width:200px;' src='./assets/images/html/photo14.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/blur?filename=photo15.jpg&sigma=25'><img style='height:200px;width:200px;' src='./assets/images/html/photo15.jpg' alt='image 01'></a></li>
+        </ul>
+      </div>
+      <div class="row">
+        <div id="rotate-div">
+          <h1 class="font-effect-3d text-white">Rotate Operation</h1>
+          <span class="text-yellow">Rotate the output image by either an explicit angle or auto-orient based on the EXIF Orientation tag.</span>
+        </div>
+        <ul class="gallery-container">
+          <li class="gallery-box"><a href='./api/images/rotate?filename=photo21.jpg&direction=right&angle=45'><img style='height:200px;width:200px;' src='./assets/images/html/photo21.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/rotate?filename=photo22.jpg&direction=right&angle=90'><img style='height:200px;width:200px;' src='./assets/images/html/photo22.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/rotate?filename=photo23.jpg&direction=right&angle=135'><img style='height:200px;width:200px;' src='./assets/images/html/photo23.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/rotate?filename=photo24.jpg&direction=right&angle=180'><img style='height:200px;width:200px;' src='./assets/images/html/photo24.jpg' alt='image 01'></a></li>
+          <li class="gallery-box"><a href='./api/images/rotate?filename=photo25.jpg&direction=right&angle=225'><img style='height:200px;width:200px;' src='./assets/images/html/photo25.jpg' alt='image 01'></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="webpage-footer white">
+      <p class="footer">this template was designed by Abdel Moumen Abdel Raouf Abdullah <span class="text-red">♥</span></p>
+    </div>
+  </div>
+<div>
+</body>
+</html>
